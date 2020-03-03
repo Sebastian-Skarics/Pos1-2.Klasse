@@ -22,9 +22,12 @@ int main(){
         case '-': erg = stod(r2) - stod(r1); break;
         case '*': erg = stod(r2) * stod(r1); break;
         case '/': erg = stod(r2) / stod(r1); break;
-        default: throw invalid_argument(Operator entspricht nicht den Vorraussetzungen);
+        default: throw invalid_argument("Operator entspricht nicht den Vorraussetzungen");
       }
-      cout << erg;
+      cout << erg << endl;
+    }
+    catch(exception &e){
+      cout << "Es ist zu einem Fehler gekommen" << e.what() << endl;
     }
   }
 }
