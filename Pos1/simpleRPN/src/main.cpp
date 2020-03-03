@@ -12,7 +12,7 @@ int main(){
   string r1 {};
   string x {};
   while(true){
-    int erg {};
+    double erg {};
     cin >> r2;
     cin >> r1;
     cin >> x;
@@ -27,7 +27,7 @@ int main(){
       cout << erg << endl;
     }
     catch(exception &e){
-      cout << "Es ist zu einem Fehler gekommen" << e.what() << endl;
+      cout << "Es ist zu einem Fehler gekommen -->" << e.what() << endl;
     }
   }
 }
