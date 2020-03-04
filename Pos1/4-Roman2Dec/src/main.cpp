@@ -27,7 +27,26 @@ int value(char digit){
 unsigned int roman2dec(string roman){
   int erg {0};
   for(int i {0}; i < roman.length(); i++){
-    erg += value(roman[i]);
+    while(i + 2 < roman.length()){
+      if(value(roman[i]) > value(roman[i +1]) || value(roman[i + 2])){
+        erg += value(roman[i]);
+      }
+      else{
+        erg -= value(roman[i]);
+      }
+      i++;
+    }
+    if(i + 2 == roman.length()){
+      if(value(roman[i]) > value(roman[i +1])){
+        erg += value(roman[i]);
+      }
+      else{
+        erg -= value(roman[i]);
+      }
+    }
+    if(i + 1 == roman.length()){
+      erg += value(roman[i]);
+    }
   }
   return erg;
 }
