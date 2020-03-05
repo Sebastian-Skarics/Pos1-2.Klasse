@@ -29,9 +29,26 @@ int value(char digit){
 
 unsigned int roman2dec(string roman){
   int erg {0};
+  if(roman.length() > 0){
+    int bigestNum {value(roman[i])}
+  }
+  for(int i {0}; i < roman.length(); i++){
+    if(i + 2 < roman.length()){
+      if(value(roman[i]) >= value(roman[i + 1]) && value(roman[i]) >= value(roman[i + 2])){
+        bigestNum = value(roman[i]);
+      }
+      else if(value(roman[i + 1]) > value(roman[i + 2])){
+        bigestNum = value(roman[i + 1])
+      }
+      else {
+        bigestNum = value(roman[i + 2])
+      }
+    }
+    
+  }
   for(int i {0}; i < roman.length(); i++){
     while(i + 2 < roman.length()){
-      if(value(roman[i]) >= value(roman[i +1]) || value(roman[i + 2])){
+      if(value(roman[i]) >= value(roman[i +1]) && value(roman[i + 2])){
         erg += value(roman[i]);
       }
       else{
@@ -58,6 +75,18 @@ unsigned int roman2dec(string roman){
 int main(){
   string str {};
   int erg {};
+  vector<string> invalid_data {"A", "IIII", "VV", "VIIII", "IIV", "XIIII", "XIIIII", "IIX", "XXXX", "XXXXX", "XXIIIV", "LIVX", "LXVIV", "VIV", "LXL", "DD", "DCDII", "IVI", "LC", "DM"};
+  for(auto item: invalid_data) {
+    bool caught{};
+  try{
+    roman2dec(item);
+  }
+  catch(logic_error &e) {
+    caught = true;
+    cout << e.what() << endl;
+  }
+  assert(caught);
+}
   vector<pair<string, unsigned int>> valid_data{
     {"",0},{"I",1}, {"II",2}, {"III",3}, {"IV",4}, {"V",5},{"VI",6}, {"VII",7}, {"VIII",8}, {"IX",9}, {"X",10},{"XI",11}, {"XII",12}, {"XIII",13}, {"XIV",14}, {"XV",15},{"XVI",16},
     {"XVII",17}, {"XVIII",18}, {"XIX",19}, {"XX",20},{"XXI",21}, {"XXII",22}, {"XXIII",23}, {"XXIV",24}, {"XXV",25},{"XXVI",26}, {"XXVII",27}, {"XXVIII",28}, {"XXIX",29}, {"XXX",30},
