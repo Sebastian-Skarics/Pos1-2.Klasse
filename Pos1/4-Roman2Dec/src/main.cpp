@@ -27,25 +27,34 @@ int value(char digit){
 }
 
 
-unsigned int roman2dec(string roman){
-  int erg {0};
-  if(roman.length() > 0){
-    int bigestNum {value(roman[i])}
-  }
+void testAnzahl(string roman){
   for(int i {0}; i < roman.length(); i++){
-    if(i + 2 < roman.length()){
-      if(value(roman[i]) >= value(roman[i + 1]) && value(roman[i]) >= value(roman[i + 2])){
-        bigestNum = value(roman[i]);
+    int anz {0};
+    if(!(value(roman[i]) == 5 || value(roman[i]) == 50 || value(roman[i]) == 500)){
+      for(int y {i}; y < roman.length(); y++){
+        if(value(roman[i]) == value(roman[y])){
+          anz++;
+        }
+        if(anz > 3){
+          throw logic_error("Too many digits of the same kind ");
+        }
       }
-      else if(value(roman[i + 1]) > value(roman[i + 2])){
-        bigestNum = value(roman[i + 1])
-      }
-      else {
-        bigestNum = value(roman[i + 2])
+    } else {
+      for(int y {i}; y < roman.length(); y++){
+        if(value(roman[i]) == value(roman[y])){
+          anz++;
+        }
+        if(anz > 1){
+          throw logic_error("Too many digits of the same kind ");
+        }
       }
     }
-    
   }
+}
+
+
+unsigned int roman2dec(string roman){
+  int erg {0};
   for(int i {0}; i < roman.length(); i++){
     while(i + 2 < roman.length()){
       if(value(roman[i]) >= value(roman[i +1]) && value(roman[i + 2])){
