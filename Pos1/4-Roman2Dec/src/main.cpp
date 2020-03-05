@@ -27,19 +27,36 @@ int value(char digit){
 }
 
 
-void testAnzahl(string roman){
+void test(string roman){
   for(int i {0}; i < roman.length(); i++){
     int anz {0};
-    if(!(value(roman[i]) == 5 || value(roman[i]) == 50 || value(roman[i]) == 500)){
-      for(int y {i}; y < roman.length(); y++){
-        if(value(roman[i]) == value(roman[y])){
-          anz++;
+    if(i + 2 < roman.length()){
+      if(value(roman[i]) < value(roman[i + 1]) || value(roman[i]) < value(roman[i + 2])){
+        if(value(roman[i]) < value(roman[i + 2]) && value(roman[i + 1]) < value(roman[i + 2])) {
+          if(roman[i] != roman[i + 1]){
+            throw logic_error("wrong sequenz of digits");
+          }
+          if(value(roman[i + 2]) == 5 || value(roman[i + 2]) == 50 || value(roman[i + 2]) == 500){
+            throw logic_error("calculating minus V, L or D");
+          }
+          if(value(roman[i + 2]) == 10 || value(roman[i + 2]) == 100 || value(roman[i + 2]) == 1000){
+            throw logic_error("calculating minus X, C or M");
+          }
         }
-        if(anz > 3){
-          throw logic_error("Too many digits of the same kind ");
+        if(value(roman[i]) == 5 || value(roman[i]) == 50 || value(roman[i]) == 500){
+          throw logic_error("calculating minus V, L or D");
         }
       }
-    } else {
+    }
+    for(int y {i + 1}; y < roman.length(); y++){
+      if(value(roman[i]) == value(roman[y])){
+        anz++;
+      }
+      if(anz > 3){
+        throw logic_error("Too many digits of the same kind ");
+      }
+    }
+    if (value(roman[i + 1]) == 5 || value(roman[i]) == 50 || value(roman[i]) == 500) {
       for(int y {i}; y < roman.length(); y++){
         if(value(roman[i]) == value(roman[y])){
           anz++;
@@ -54,6 +71,7 @@ void testAnzahl(string roman){
 
 
 unsigned int roman2dec(string roman){
+  test(roman);
   int erg {0};
   for(int i {0}; i < roman.length(); i++){
     while(i + 2 < roman.length()){
@@ -88,6 +106,7 @@ int main(){
   for(auto item: invalid_data) {
     bool caught{};
   try{
+    cout << item << endl;
     roman2dec(item);
   }
   catch(logic_error &e) {
@@ -97,7 +116,7 @@ int main(){
   assert(caught);
 }
   vector<pair<string, unsigned int>> valid_data{
-    {"",0},{"I",1}, {"II",2}, {"III",3}, {"IV",4}, {"V",5},{"VI",6}, {"VII",7}, {"VIII",8}, {"IX",9}, {"X",10},{"XI",11}, {"XII",12}, {"XIII",13}, {"XIV",14}, {"XV",15},{"XVI",16},
+    {"I",1}, {"II",2}, {"III",3}, {"IV",4}, {"V",5},{"VI",6}, {"VII",7}, {"VIII",8}, {"IX",9}, {"X",10},{"XI",11}, {"XII",12}, {"XIII",13}, {"XIV",14}, {"XV",15},{"XVI",16},
     {"XVII",17}, {"XVIII",18}, {"XIX",19}, {"XX",20},{"XXI",21}, {"XXII",22}, {"XXIII",23}, {"XXIV",24}, {"XXV",25},{"XXVI",26}, {"XXVII",27}, {"XXVIII",28}, {"XXIX",29}, {"XXX",30},
     {"XXXI",31}, {"XXXII",32}, {"XXXIII",33}, {"XXXIV",34}, {"XXXV",35},{"XXXVI",36}, {"XXXVII",37}, {"XXXVIII",38}, {"XXXIX",39}, {"XL",40},{"XLI",41}, {"XLII",42}, {"XLIII",43},
     {"XLIV",44}, {"XLV",45},{"XLVI",46}, {"XLVII",47}, {"XLVIII",48}, {"IL",49}, {"L",50},{"LI",51}, {"LII",52}, {"LIII",53}, {"LIV",54}, {"LV",55},{"LVI",56}, {"LVII",57},
