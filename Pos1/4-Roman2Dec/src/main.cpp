@@ -46,23 +46,33 @@ void test(string roman){
         if(value(roman[i]) == 5 || value(roman[i]) == 50 || value(roman[i]) == 500){
           throw logic_error("calculating minus V, L or D");
         }
+        if((value(roman[i]) == 5 || value(roman[i]) == 50 || value(roman[i]) == 500) and (value(roman[i + 1]) == 10 || value(roman[i + 1]) == 100 || value(roman[i + 1]) == 1000)){
+          throw logic_error("calculating minus V, L or D");
+        }
+      }
+      if(value(roman[i + 1]) == 5 || value(roman[i + 1]) == 50 || value(roman[i + 1]) == 500){
+        throw logic_error("calculating minus V, L or D");
       }
     }
-    for(int y {i + 1}; y < roman.length(); y++){
+    for(int y {i}; y < roman.length(); y++){
       if(value(roman[i]) == value(roman[y])){
         anz++;
       }
-      if(anz > 3){
-        throw logic_error("Too many digits of the same kind ");
-      }
     }
-    if (value(roman[i + 1]) == 5 || value(roman[i]) == 50 || value(roman[i]) == 500) {
-      for(int y {i}; y < roman.length(); y++){
-        if(value(roman[i]) == value(roman[y])){
-          anz++;
-        }
-        if(anz > 1){
-          throw logic_error("Too many digits of the same kind ");
+    if(anz > 3){
+      throw logic_error("Too many digits of the same kind ");
+    } else {
+      anz = 0;
+    }
+    if(i + 1 < roman.length()){
+      if (value(roman[i]) == 5 || value(roman[i]) == 50 || value(roman[i]) == 500) {
+        for(int y {i}; y < roman.length(); y++){
+          if(value(roman[i]) == value(roman[y])){
+            anz++;
+          }
+          if(anz > 1){
+            throw logic_error("Too many digits of the same kind ");
+          }
         }
       }
     }
